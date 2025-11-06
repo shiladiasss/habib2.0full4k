@@ -29,6 +29,7 @@ if ($logado) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habib Special Coffee</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="imagens/logo.png">
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
         body{background:#f5f5f5;color:#333;}
@@ -68,7 +69,7 @@ if ($logado) {
 <header>
     
     <div class="topbar">
-        <div class="logo"><img src="imagens/logo.png" alt="Habib"></div>
+        <div class="logo"><a href="inicial.php"><img src="imagens/logo.png" alt="Habib"></a></div>
         <div class="search">
             <form><input type="text" placeholder="Buscar cafés..."><button><i class="fas fa-search"></i></button></form>
         </div>
@@ -106,8 +107,7 @@ if ($logado) {
                 Escolha uma opção:
             </p>
             
-            <!-- BOTÃO LOGIN -->
-            <a href="**login.php?volta=inicial.php**" 
+            <a href="login.php?volta=<?= urlencode($_SERVER['REQUEST_URI']) ?>" 
                style="display:block;margin:15px 0;padding:18px;background:#8B4513;color:#fff;border-radius:12px;text-decoration:none;font-size:18px;font-weight:bold;">
                 <i class="fas fa-sign-in-alt"></i> JÁ TENHO CONTA
             </a>
@@ -134,13 +134,7 @@ document.getElementById('btn-abre-modal').onclick = function(e) {
 }
 </script>
 <?php endif; ?>
-        <div class="cart">
-            <a href="carrinho.php">
-                <i class="fas fa-shopping-bag"></i>
-                <?php if($carrinho_qtd>0): ?><span><?= $carrinho_qtd ?></span><?php endif; ?>
-            </a>
-        </div>
-    </div>
+        
 </header>
 
 <nav>
@@ -150,7 +144,7 @@ document.getElementById('btn-abre-modal').onclick = function(e) {
 </nav>
 
 <div class="banner">
-    <img src="imagens/banner.jpg" alt="Café Brasil">
+    <img src="imagens/inicio.png" alt="Café Brasil">
 </div>
 
 <div class="destaques">
@@ -173,7 +167,7 @@ document.getElementById('btn-abre-modal').onclick = function(e) {
 
 <footer>
     <div class="footer-content">
-        <img src="imagens/logo-branco.png" style="height:100px;" alt="Habib">
+        <img src="imagens/logo.png" style="height:100px;" alt="Habib">
         <div><strong>Loja</strong><br><a href="#" style="color:#fff;">Café</a><br><a href="#" style="color:#fff;">Acessórios</a><br><a href="#" style="color:#fff;">Promoções</a></div>
         <div>
             <strong>Atendimento</strong><br><?= nl2br($empresa['telefone'] ?? '(45) 99933-7261') ?><br>
