@@ -2,19 +2,21 @@
 session_start();
 $pdo = new PDO("mysql:host=localhost;dbname=habib;charset=utf8mb4", "root", "");
 
-// === DE ONDE VEIO? (volta pro lugar certo) ===
+// Página para onde o usuário será redirecionado
 $volta_para = $_GET['volta'] ?? 'inicial.php';
 
-if ($_POST) {
-    // 1) LIMPA O CPF: remove TUDO que não for número
-    $cpf_limpo = preg_replace('/\D/', '', $_POST['cpf']);
-    
-    // 2) Busca no banco pelo CPF limpo
-    $stmt = $pdo->prepare("SELECT * FROM cadastro WHERE cpf = ?");
-    $stmt->execute([$cpf_limpo]);
-    $user = $stmt->fetch();
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-    // 3) Verifica a senha
+    // 1) Limpa o CPF
+    $cpf_limpo = preg_replace('/\D/', '', $_POST['cpf']);
+
+    // 2) Busca usuário no banco
+    $sql = "SELECT * FROM cadastro WHERE cpf = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$cpf_limpo]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // 3) Verifica senha
     if ($user && password_verify($_POST['senha'], $user['senha'])) {
         $_SESSION['cpf']  = $user['cpf'];
         $_SESSION['nome'] = $user['nome'];
@@ -31,6 +33,7 @@ if ($_POST) {
 <head>
     <meta charset="UTF-8">
     <title>Login Habib</title>
+    <link rel="icon" type="image/png" href="imagens/logo.png">
     <style>
         body{background:#f5f5f5;font-family:Arial;text-align:center;padding:60px;}
         .box{max-width:380px;margin:auto;background:#fff;padding:40px;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.15);}
@@ -43,14 +46,22 @@ if ($_POST) {
     </style>
 </head>
 <body>
+
 <div class="box">
     <h2>☕ BEM-VINDO DE VOLTA</h2>
+
     <?php if(isset($erro)) echo "<div class='erro'>$erro</div>"; ?>
-    
+
     <form method="post">
         <input type="text" name="cpf" placeholder="CPF (com ou sem pontos)" required>
         <input type="password" name="senha" placeholder="Sua senha" required>
+
+        <p><a href="cadastro.php">Ainda não tem conta? Cadastre-se</a></p>
+        <p><a href="inicial.php">← Voltar</a></p>
+
         <button type="submit">ENTRAR</button>
     </form>
+</div>
 
-    <p style="margin-top:20
+</body>
+</html>
