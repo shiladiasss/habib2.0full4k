@@ -9,7 +9,9 @@ $carrinho = $itens->fetchAll();
 $total = array_sum(array_column($carrinho, 'total'));
 ?>
 
-<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>Meu Carrinho</title><style>body{background:#f5f5f5;font-family:Arial;padding:30px;}.container{max-width:800px;margin:auto;background:#fff;padding:30px;border-radius:15px;}table{width:100%;border-collapse:collapse;margin:20px 0;}th,td{border:1px solid #ddd;padding:12px;text-align:center;}th{background:#8B4513;color:#fff;}.total{font-size:24px;font-weight:bold;color:#8B4513;}</style></head><body>
+<!DOCTYPE html><html lang="pt-BR"><head>
+<link rel="icon" type="image/png" href="imagens/logo.png">
+<meta charset="UTF-8"><title>Meu Carrinho</title><style>body{background:#f5f5f5;font-family:Arial;padding:30px;}.container{max-width:800px;margin:auto;background:#fff;padding:30px;border-radius:15px;}table{width:100%;border-collapse:collapse;margin:20px 0;}th,td{border:1px solid #ddd;padding:12px;text-align:center;}th{background:#8B4513;color:#fff;}.total{font-size:24px;font-weight:bold;color:#8B4513;}</style></head><body>
 <div class="container">
     <h1>Meu Carrinho</h1>
     <?php if(empty($carrinho)): ?>
@@ -29,6 +31,6 @@ $total = array_sum(array_column($carrinho, 'total'));
         <p class="total">Total: R$ <?= number_format($total,2,',','.') ?></p>
         <button onclick="alert('Compra finalizada! Entraremos em contato.')" style="background:#8B4513;color:#fff;padding:15px 30px;border:none;border-radius:10px;cursor:pointer;font-size:18px;">Finalizar Compra</button>
     <?php endif; ?>
-    <p><a href="index.php">← Continuar comprando</a></p>
+    <p><a href="inicial.php">← Continuar comprando</a></p>
 </div>
 </body></html>
